@@ -362,9 +362,9 @@ header>.container {
 }
 
 .galery-item:hover div {
-  height: 110%;
-  width: 110%;
-  /* transform: translate(-50%, -50%); */
+  /* height: 110%; */
+  /* width: 110%; */
+  transform: translate(-50%, -50%) scale(1.05);  /* transform: translate(-50%, -50%); */
   /* vertical-align; */
 }
 
