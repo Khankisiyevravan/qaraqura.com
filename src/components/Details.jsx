@@ -60,11 +60,6 @@ function Details(props) {
   }, [id]);
   useEffect(() => {
     setDetail(details[index]);
-    // .then(() => {
-
-
-    // }
-    // );
     console.log(detailRef);
   }, [index]);
   const uploadFunc = () => {
@@ -72,11 +67,13 @@ function Details(props) {
       type: "Show_Upload_Solution",
     });
   };
-  
   useEffect(() => {
-    detailRef.current.querySelector("#problem p").innerHTML = detail?.problem
-    detailRef.current.querySelector("#solving p").innerHTML = detail?.solution_text
-    detailRef.current.querySelector("p").innerHTML = detail?.description
+    if (detail) {
+
+      detailRef.current.querySelector("#problem p").innerHTML = detail?.problem
+      detailRef.current.querySelector("#solving p").innerHTML = detail?.solution_text
+      detailRef.current.querySelector("p").innerHTML = detail?.description
+    }
   }, [detail])
   const nextPage = (e) => {
     if (index >= details.length - 1) {

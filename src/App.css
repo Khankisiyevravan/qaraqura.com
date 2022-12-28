@@ -339,11 +339,14 @@ header>.container {
   align-content: flex-start;
   align-items: flex-start;
 }
-
+html{
+  scroll-behavior: smooth;
+}
 .galery-item {
   width: calc((100% - 60px) / 4);
   height: 365px;
-  overflow: auto;
+  /* overflow: auto; */
+  overflow: hidden;
   max-width: 305px;
   position: relative;
 }
@@ -351,7 +354,7 @@ header>.container {
 .galery-item div {
   background-position: center;
   background-size: cover;
-  overflow: auto;
+  /* overflow: auto; */
   width: 100%;
   height: 100%;
   transition: 0.5s;
@@ -366,6 +369,7 @@ header>.container {
   /* width: 110%; */
   transform: translate(-50%, -50%) scale(1.05);  /* transform: translate(-50%, -50%); */
   /* vertical-align; */
+  
 }
 
 .galery-item:nth-of-type(2n + 1) {

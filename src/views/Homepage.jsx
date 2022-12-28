@@ -44,12 +44,12 @@ function Homepage() {
           </h2>
 
           <div id="video">
-            <Link to="/" onMouseMove={(e) => hoverEffect(e)} onMouseLeave={(e) => {
+            <a href="#galery-section" onMouseMove={(e) => hoverEffect(e)} onMouseLeave={(e) => {
               e.target.closest("div").querySelector("video").style.opacity = "0";
               setCount(0)
             }}>
               Davam et
-            </Link>
+            </a>
             <video
               id="arrow-swirly-video"
               src="/videos/arrow-swirly2.mp4"
