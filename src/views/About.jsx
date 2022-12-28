@@ -46,6 +46,7 @@ function About() {
     };
     getInstructorData();
   }, []);
+  
   useEffect(() => {
     aboutMainRef.current.querySelector(".about-head-text span").innerHTML = aboutMain[0]?.title_1_little
     aboutMainRef.current.querySelector(".about-head-text h2").innerHTML = aboutMain[0]?.title_1

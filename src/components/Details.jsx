@@ -72,6 +72,7 @@ function Details(props) {
       type: "Show_Upload_Solution",
     });
   };
+  
   useEffect(() => {
     detailRef.current.querySelector("#problem p").innerHTML = detail?.problem
     detailRef.current.querySelector("#solving p").innerHTML = detail?.solution_text
