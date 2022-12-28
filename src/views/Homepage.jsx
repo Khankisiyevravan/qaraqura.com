@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 function Homepage() {
-  
   AOS.init();
   const [galeries, setGaleries] = useState([]);
   const [general, setGeneral] = useState([]);
