@@ -1283,7 +1283,10 @@ section {
 footer button {
   background-color: #f5fafa;
 }
-
+footer #developer{
+ color: #767676;
+ font-size: 14px;
+}
 @media screen and (max-width: 1200px) {
   .container {
     width: 90%;

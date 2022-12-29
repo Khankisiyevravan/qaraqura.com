@@ -14,6 +14,7 @@ function Footer() {
     <footer>
       <div className="container">
         <span>© 2022, Bütün hüquqlar qorunur.</span>
+        <a id="developer" href="https://www.linkedin.com/in/ravan-khankishiyev-75a685223">Website developing by <strong>Ravan Khankishiyev</strong></a>
         <div id="social-media-icons">
           <button
             onClick={
