@@ -1220,10 +1220,12 @@ section {
   object-fit: contain;
 }
 
-#home-head-text h2 {
+#home-head-text h2,
+#home-head-text h2 p {
   font-size: 9.375rem;
   line-height: 10rem;
   font-weight: 400;
+  font-family: "Bahiana", cursive;
 }
 
 /* #arrow-swirly {

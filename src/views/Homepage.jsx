@@ -4,11 +4,13 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { useRef } from "react";
 function Homepage() {
   AOS.init();
   const [galeries, setGaleries] = useState([]);
   const [general, setGeneral] = useState([]);
   const [count, setCount] = useState(0);
+  const generalRef = useRef();
   useEffect(() => {
     const getGalery = async () => {
       let data = await fetch("https://admin.qaraqura.com/post_list/").then(
@@ -35,12 +37,17 @@ function Homepage() {
     }
     setCount(count + 1);
   };
+  useEffect(() => {
+    if (general[0]) {
+      generalRef.current.innerHTML = general[0]?.header_text
+    }
+  }, [general])
   return (
     <>
       <section id="home-head-text">
         <div className="container">
-          <h2>
-            {general[0]?.header_text}
+          <h2 ref={generalRef}>
+            
           </h2>
 
           <div id="video">
