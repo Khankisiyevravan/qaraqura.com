@@ -16,7 +16,8 @@ function Homepage() {
       let data = await fetch("https://admin.qaraqura.com/post_list/").then(
         (a) => a.json()
       );
-      setGaleries(data.sort((a, b) => -1).slice(0, 12));
+      console.log(data);
+      setGaleries(data.sort().slice(0, 12));
     };
     getGalery();
     const generalSettings = async () => {

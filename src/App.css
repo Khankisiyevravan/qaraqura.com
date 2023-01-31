@@ -5,7 +5,7 @@
   font-family: "Mister October";
   src: url("./fonts/mister-october.regular.ttf") format("truetype");
 }
-.App{
+.App {
   min-height: 100vh;
 }
 * {
@@ -44,7 +44,7 @@ header {
   /* background-color: red; */
 }
 
-header>.container {
+header > .container {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -72,7 +72,7 @@ header>.container {
   /* flex-direction: ; */
 }
 
-#header-right>a {
+#header-right > a {
   display: flex;
   align-items: center;
 }
@@ -96,7 +96,7 @@ header>.container {
   left: 50%;
   transform: translate(-50%, -50%);
 } */
-#header-right>a span {
+#header-right > a span {
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
@@ -222,7 +222,7 @@ header>.container {
 .about-head-text h2 {
   margin-top: 18px;
 }
-.about-head-text .container>span,
+.about-head-text .container > span,
 .about-card h6,
 #problem h6,
 #solving h6 {
@@ -339,7 +339,7 @@ header>.container {
   align-content: flex-start;
   align-items: flex-start;
 }
-html{
+html {
   scroll-behavior: smooth;
 }
 .galery-item {
@@ -367,9 +367,8 @@ html{
 .galery-item:hover div {
   /* height: 110%; */
   /* width: 110%; */
-  transform: translate(-50%, -50%) scale(1.05);  /* transform: translate(-50%, -50%); */
+  transform: translate(-50%, -50%) scale(1.05); /* transform: translate(-50%, -50%); */
   /* vertical-align; */
-  
 }
 
 .galery-item:nth-of-type(2n + 1) {
@@ -453,7 +452,7 @@ footer .social-media-icon {
 .about-head-text.contact .container h2 img:nth-of-type(1) {
   padding-right: 10px;
 }
-.about-head-text.contact{
+.about-head-text.contact {
   min-height: calc(100vh - 170px);
 }
 .about-card {
@@ -497,7 +496,7 @@ footer .social-media-icon {
   height: 100%;
 }
 
-form {
+.contact form {
   margin-top: 75px;
   width: 740px;
   display: flex;
@@ -680,9 +679,7 @@ form textarea {
   height: 100%;
 }
 
-
-
-#main-text>p {
+#main-text > p {
   width: 100%;
   font-weight: 600;
   font-size: 32px;
@@ -794,14 +791,30 @@ section {
   margin-bottom: 20px;
   overflow: hidden;
   position: relative;
-  overflow: auto;
+  overflow: hidden;
 }
 
 .detail-solve::-webkit-scrollbar {
   display: none;
 }
-
-.detail-solve div {
+.detail-solve::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(22, 27, 34, 0.7) 100%
+  );
+  visibility: hidden;
+  opacity: 0;
+  z-index: 3;
+  transition: 0.4s;
+}
+.detail-solve .s-image {
   position: absolute;
   background-position: center;
   background-size: cover;
@@ -812,14 +825,43 @@ section {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  z-index: 2;
 }
-
-.detail-solve:hover div {
-  width: 110%;
-  height: 110%;
+.detail-solve .s-image img {
+  width: 100%;
+  height: 100%;
+  object-position: center;
+  object-fit: cover;
+}
+.detail-solve:hover .s-image {
+  transform: translate(-50%, -50%) scale(1.05);
   cursor: pointer;
 }
-
+.detail-solve:not(:last-of-type) .solitioner {
+  position: absolute;
+  z-index: 4;
+  bottom: 30px;
+  left: 50%;
+  overflow: hidden;
+  transform: translate(-50%, 0px);
+  color: white;
+}
+.solitioner span {
+  transform: translateY(30px);
+  display: block;
+  transition: 0.4s;
+  color: rgba(245, 250, 250, 1);
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 22.5px;
+}
+.detail-solve:hover:not(:last-of-type) .solitioner span {
+  transform: translateY(0);
+}
+.detail-solve:hover:not(:last-of-type)::after {
+  opacity: 1;
+  visibility: visible;
+}
 .detail-solve:last-of-type {
   display: flex;
   padding: 111px 71px;
@@ -850,7 +892,7 @@ section {
   color: #000;
 }
 
-#details-solves-head>div {
+#details-solves-head > div {
   display: flex;
 }
 
@@ -872,7 +914,7 @@ section {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 2;
+  z-index: 231;
   transition: 0.7s;
   width: 100%;
   height: 100%;
@@ -898,7 +940,7 @@ section {
   width: 531px;
   display: flex;
   align-items: center;
-  margin: 72px auto 37px;
+  margin: 24px auto 37px;
   /* gap: 24px; */
   border: 2px dashed #8f8f8f;
   border-radius: 10px;
@@ -1258,7 +1300,7 @@ section {
   position: relative;
 }
 
-.solutionItem>img {
+.solutionItem > img {
   width: 100%;
   height: 80%;
   object-fit: contain;
@@ -1283,10 +1325,76 @@ section {
 footer button {
   background-color: #f5fafa;
 }
-footer #developer{
- color: #767676;
- font-size: 14px;
+footer #developer {
+  color: #767676;
+  font-size: 14px;
 }
+#form-solutionmodal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4%;
+  margin-top: 75px;
+}
+#form-solutionmodal .form-group {
+  width: 48%;
+  margin-bottom: 24px;
+}
+#form-solutionmodal .form-group.form-group.full {
+  width: 100%;
+  height: 56px;
+}
+#noticed {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+  margin-bottom: 27px;
+}
+.cancel-btn {
+  width: 208px;
+  height: 42px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  border: 1px solid #161b22;
+  color: #161b22;
+  background-color: #f5fafa;
+}
+#upload-file-section {
+  min-height: 100%;
+  overflow: auto;
+}
+#modal-btns {
+  display: flex;
+  gap: 7px;
+  margin-bottom: 20px;
+}
+.submit-btn {
+  width: calc(100% - 215px);
+  height: 42px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  border: 1px solid #161b22;
+  color: white;
+  background-color: #161b22;
+}
+.submit-btn.disabled,
+.submit-btn.disabled:hover {
+  background-color: #8f8f8f;
+  border: 1px solid #8f8f8f;
+  color: white;
+}
+.submit-btn:hover {
+  color: #161b22;
+  background-color: #f5fafa;
+}
+.cancel-btn:hover {
+  color: white;
+  background-color: #161b22;
+}
+
 @media screen and (max-width: 1200px) {
   .container {
     width: 90%;
@@ -1407,7 +1515,10 @@ footer #developer{
     height: 160px;
     background-size: cover;
   }
-
+  #upload-file-section {
+    min-height: 100%;
+    overflow: auto;
+  }
   .worker-image img {
     width: 150px;
     height: 150px;
@@ -1445,7 +1556,7 @@ footer #developer{
     width: 94%;
   }
 
-  header>.container {
+  header > .container {
     height: 110px;
   }
 
@@ -1454,7 +1565,7 @@ footer #developer{
     margin: 2rem 0 0 0rem;
   }
 
-  #about-cards+.about-head-text {
+  #about-cards + .about-head-text {
     margin-top: 5rem;
   }
 
@@ -1468,7 +1579,7 @@ footer #developer{
     width: 340px;
     max-width: 100%;
   } */
-  .plus+span {
+  .plus + span {
     display: none;
   }
 
@@ -1591,7 +1702,7 @@ footer #developer{
     padding: 30px;
   }
 
-  #main-text>p {
+  #main-text > p {
     width: 100%;
   }
 
@@ -1619,9 +1730,9 @@ footer #developer{
   #pagination {
     width: 100%;
   }
-#pagination img{
-  height: 15px;
-}
+  #pagination img {
+    height: 15px;
+  }
   /* .vertical{
     width: 225px;
     height: 277px;

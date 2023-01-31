@@ -1,23 +1,38 @@
 import React from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { useState ,useRef,useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { connect } from "react-redux";
 import Loading from "./Loading";
 import Thanks from "./Thanks";
 function Modal(props) {
   const [loading, setLoading] = useState(false);
-  const hiddenModal = () => {
-    props.dispatch({
-      type: "Hidden_Upload",
-    });
-    modalUpload.current.style.transitionDelay = "0s";
-  };
   AOS.init();
   const modalUpload = useRef();
   const [x, setX] = useState("");
   const [items, setItems] = useState([]);
   const [products, setProducts] = useState([]);
+  const [btnDisabled, setBtnDisabled] = useState(true);
+  const submitBtnRef = useRef();
+  const [form, setForm] = useState({
+    name: "",
+    surname: "",
+    social_link: "",
+  });
+  const hiddenModal = () => {
+    props.dispatch({
+      type: "Hidden_Upload",
+    });
+    modalUpload.current.style.transitionDelay = "0s";
+    setForm({
+      name: "",
+      surname: "",
+      social_link: "",
+    });
+    setItems([]);
+    setBtnDisabled(true);
+    setProducts([]);
+  };
   useEffect(() => {
     if (props.uploadShowR) {
       if (props.burgerShowR) {
@@ -42,14 +57,20 @@ function Modal(props) {
     setItems([...e.target.files]);
     setProducts(e.target.files);
   };
+  const handleInput = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
   const submitButton = (e) => {
     setLoading(true);
     console.log(products.length);
     let formData = new FormData();
+    formData.append("name", form.name);
+    formData.append("surname", form.surname);
+    formData.append("social_link", form.social_link);
+    console.log(form);
     for (let i = 0; i < products.length; i++) {
       formData.append("document", products[i]);
     }
-
     e.preventDefault();
     fetch("https://admin.qaraqura.com/create_post/", {
       method: "POST",
@@ -61,10 +82,26 @@ function Modal(props) {
           type: "Show_Thanks",
         });
         setLoading(false);
+        setForm({
+          name: "",
+          surname: "",
+          social_link: "",
+        });
+        setItems([]);
+        setBtnDisabled(true);
+        setProducts([]);
       })
       .catch((error) => console.log(error, "error"));
   };
-
+  useEffect(() => {
+    if (products.length > 0) {
+      setBtnDisabled(false);
+      submitBtnRef.current.removeAttribute("disabled");
+    } else {
+      setBtnDisabled(true);
+      submitBtnRef.current.setAttribute("disabled", "");
+    }
+  }, [products]);
   const previewDiv = useRef();
   const preview = (e, index) => {
     // setX(itemsReaders[index]);
@@ -81,10 +118,9 @@ function Modal(props) {
   };
   useEffect(() => {
     let image = previewDiv.current.querySelector("img");
-    
+
     if (image?.naturalHeight < image?.naturalWidth) {
       image.classList.add("vertical-preview");
-      
     } else {
       image.classList.remove("vertical-preview");
     }
@@ -100,6 +136,43 @@ function Modal(props) {
           <img src={x} alt="" />
         </div>
         <div id="upload-head" data-aos="fade-down" data-aos-duration="2000">
+          <form action="" id="form-solutionmodal">
+            <div className="form-group">
+              <span>Ad</span>
+              <input
+                name="name"
+                onChange={(e) => handleInput(e)}
+                type="text"
+                value={form.name}
+                placeholder="Adınızı daxil edin"
+              />
+            </div>
+            <div className="form-group">
+              <span>Soyad</span>
+              <input
+                name="surname"
+                onChange={(e) => handleInput(e)}
+                type="text"
+                value={form.surname}
+                placeholder="Soyadınızı daxil edin."
+              />
+            </div>
+            <div className="form-group full">
+              <span>Sosial şəbəkə (link)</span>
+              <input
+                name="social_link"
+                onChange={(e) => handleInput(e)}
+                type="text"
+                value={form.social_link}
+                placeholder="Sosial şəbəkənizi qeyd edin."
+              />
+            </div>
+          </form>
+          <p id="noticed">
+            Qeyd: yuxarıdakı məlumatların doldurulması zəruri deyil. Postların
+            paylaşımı zamanı postun sizin tərəfinizdən göndərildiyinin qeyd
+            olunmasını istəyirsinizsə, forumu doldurun.
+          </p>
           <div id="upload-file-process">
             <div id="upload-icon">
               <img src="/images/upload-icon.png" alt="" />
@@ -119,9 +192,28 @@ function Modal(props) {
               <label htmlFor="upload">FAYLI SEÇİN</label>
             </div>
           </div>
-
+          <div>
+            {/* <input
+              onChange={(e) => handleInput(e)}
+              type="text"
+              name="name"
+              id=""
+            />
+            <input
+              onChange={(e) => handleInput(e)}
+              type="text"
+              name="surname"
+              id=""
+            />
+            <input
+              onChange={(e) => handleInput(e)}
+              type="text"
+              name="social_link"
+              id=""
+            /> */}
+          </div>
           <div id="upload-files-div">
-            <h5>Əlavə olunmuş fayllar</h5>
+            {!btnDisabled && <h5>Əlavə olunmuş fayllar</h5>}
             <div id="upload-files">
               {items?.map((p, index) => (
                 <div key={index} className="upload-file">
@@ -137,7 +229,18 @@ function Modal(props) {
                   </div>
                 </div>
               ))}
-
+              <div id="modal-btns">
+                <button className="cancel-btn" onClick={() => hiddenModal()}>
+                  Imtina Et
+                </button>
+                <button
+                  ref={submitBtnRef}
+                  className={`submit-btn ${btnDisabled ? "disabled" : ""}`}
+                  onClick={submitButton}
+                >
+                  Yüklə
+                </button>
+              </div>
               {/* <div className="upload-file">
                 <div className="upload-file-detail">
                   <div className="upload-file-icon">
@@ -151,7 +254,7 @@ function Modal(props) {
             </div>
           </div>
         </div>
-        <div id="upload-bottom">
+        {/* <div id="upload-bottom">
           <div className="container">
             <button onClick={() => hiddenModal()} className="btn2">
               Imtina Et
@@ -160,7 +263,7 @@ function Modal(props) {
               Yüklə
             </button>
           </div>
-        </div>
+        </div> */}
       </section>
 
       {/* <section>

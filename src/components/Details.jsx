@@ -37,7 +37,7 @@ function Details(props) {
       );
       setDetails(data);
     };
-    getDetail()
+    getDetail();
     setIndex(index);
     const getSolutionList = async () => {
       let data = await fetch(`https://admin.qaraqura.com/solution_list/`).then(
@@ -48,7 +48,7 @@ function Details(props) {
     };
     getSolutionList();
     return () => {
-      setDetail(details[index])
+      setDetail(details[index]);
     };
   }, []);
 
@@ -69,12 +69,12 @@ function Details(props) {
   };
   useEffect(() => {
     if (detail) {
-
-      detailRef.current.querySelector("#problem p").innerHTML = detail?.problem
-      detailRef.current.querySelector("#solving p").innerHTML = detail?.solution_text
-      detailRef.current.querySelector("p").innerHTML = detail?.description
+      detailRef.current.querySelector("#problem p").innerHTML = detail?.problem;
+      detailRef.current.querySelector("#solving p").innerHTML =
+        detail?.solution_text;
+      detailRef.current.querySelector("p").innerHTML = detail?.description;
     }
-  }, [detail])
+  }, [detail]);
   const nextPage = (e) => {
     if (index >= details.length - 1) {
       e.preventDefault();
@@ -125,13 +125,11 @@ function Details(props) {
       <section id="detail-text">
         <div className="container">
           <div id="main-text" ref={detailRef}>
-            <p>
-
-            </p>
+            <p></p>
             <div id="problem-solving">
               <div id="problem">
                 <h6>Problem</h6>
-                <p >
+                <p>
                   {/* {
                     detail?.problem
                   } */}
@@ -139,9 +137,7 @@ function Details(props) {
               </div>
               <div id="solving">
                 <h6>Həlli yolu</h6>
-                <p>
-                  {/* {detail?.solution_text} */}
-                </p>
+                <p>{/* {detail?.solution_text} */}</p>
               </div>
             </div>
           </div>
@@ -173,7 +169,11 @@ function Details(props) {
                   setSolutionItemIndex(index);
                 }}
               >
+                <div className="solitioner">
+                  <span>Ruslan Sadıqlı</span>
+                </div>
                 <div
+                  className="s-image"
                   style={{ backgroundImage: `url('${solution.image}')` }}
                 ></div>
               </div>
