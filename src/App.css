@@ -82,7 +82,9 @@ header > .container {
   height: 43px;
   position: relative;
 }
-
+#details-solves-head div{
+  cursor: pointer;
+}
 /* .plus img:nth-of-type(2) {
   position: absolute;
   top: 50%;
@@ -791,7 +793,7 @@ section {
   margin-bottom: 20px;
   overflow: hidden;
   position: relative;
-  overflow: hidden;
+cursor: pointer;
 }
 
 .detail-solve::-webkit-scrollbar {
